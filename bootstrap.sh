@@ -29,10 +29,11 @@ updateDotfiles() {
 
 configGit() {
     cd ~/.local/
-    if [ -f etc/git-config.sh ]; then
+    if [ -e etc/git-config.sh ]; then
+        cd etc
         sh git-config.sh
     else
-        echo "git.sh don't exist;"
+        echo "git-config.sh don't exist;"
     fi
 }
 
