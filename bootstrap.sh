@@ -11,7 +11,7 @@ DOTFILES_GIT_URL="https://github.com/londbell/dotfiles.git"
 mkdir -p $ETC
 mkdir -p $BIN
 
-updateDotfiles() {
+update_dotfiles() {
     cd ~/.local/
     if [ -d dotfiles ]; then
         cd dotfiles
@@ -25,9 +25,11 @@ updateDotfiles() {
     cp -rf etc/* $ETC/
     cp -rf bin/* $BIN/
     cp bootstrap.sh $BIN/
+
+    . ~/.local/bin/utils.sh
 }
 
-configGit() {
+config_git_alias() {
     cd ~/.local/
     if [ -e etc/git-config.sh ]; then
         cd etc
@@ -38,5 +40,5 @@ configGit() {
 }
 
 # shell函数执行不需要()
-updateDotfiles
-configGit
+update_dotfiles
+config_git_alias
