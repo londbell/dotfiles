@@ -18,6 +18,7 @@ function gst() {
     git status
 }
 
+alias -g ggg='| grep'
 alias z='cd'
 alias cls='clear'
 alias ll='la -l'
