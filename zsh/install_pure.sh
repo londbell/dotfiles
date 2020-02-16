@@ -1,5 +1,6 @@
 #!/bin/sh
 set -e
+set -x
 
 PURE_GIT_URL="https://github.com/sindresorhus/pure.git"
 
@@ -39,7 +40,6 @@ sed -i "" "\:prompt pure:d" ~/.zshrc
 
 echo "autoload -U promptinit; promptinit" >> ~/.zshrc
 echo "prompt pure" >> ~/.zshrc
-
 
 # 写入全局fpath
 sed -i "" "\:fpath=(~/.local/pure:d" ${OH_MY_ZSH}/oh-my-zsh.sh
