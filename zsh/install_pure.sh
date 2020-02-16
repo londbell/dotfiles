@@ -4,7 +4,7 @@ set -x
 
 PURE_GIT_URL="https://github.com/sindresorhus/pure.git"
 
-git clone ${PURE_GIT_URL} "${DOTFILES_ZSH}"
+git clone ${PURE_GIT_URL} "${DOTFILES_ZSH}/pure"
 
 :<<!
 来自:http://www.51testing.com/html/39/45739-179632.html
