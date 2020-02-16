@@ -3,11 +3,11 @@
 set -e
 set -x
 
-LOCAL=~/.local
+LOCAL=${HOME}/.local
 export ETC=${LOCAL}/etc
 export BIN=${LOCAL}/bin
 export DOTFILES_ZSH=${LOCAL}/zsh
-export OH_MY_ZSH=~/.oh-my-zsh
+export OH_MY_ZSH=${HOME}/.oh-my-zsh
 
 # 存放clone而来的src,但不在这个目录里做修改，拷贝到安装目录后安装
 export DOTFILESSRC=${LOCAL}/dotfilessrc
@@ -55,28 +55,28 @@ main() {
     cp -rf ${DOTFILES_ZSH}/plugins/* ${OH_MY_ZSH}/custom/plugins/
 
     # source一下bash_profile
-    sed -i "" "\:source ~/.bash_profile:d" ~/.zshrc
-    echo "source ~/.bash_profile" ~/.zshrc
+    sed -i "\:source ~/.bash_profile:d" ${HOME}/.zshrc
+    echo "source ~/.bash_profile" ${HOME}/.zshrc
 
     # source z插件必须的z.sh
-    sed -i "" "\:source ${DOTFILES_ZSH}/z.sh:d" a.txt
-    echo "source ${DOTFILES_ZSH}/z.sh" >> a.txt
+    sed -i "\:source ${DOTFILES_ZSH}/z.sh:d" ${HOME}/.zshrc
+    echo "source ${DOTFILES_ZSH}/z.sh" >> ${HOME}/.zshrc
 
     # 开启zsh的插件
     # 安装完oh-my-zsh之后,zshrc文件中应该是plugins=(git)
-    sed -i "" "/^plugins=(git)/ c\\
+    sed -i "/^plugins=(git)/ c\\
     plugins=(z git globalias)
-    " ~/.zshrc
+    " ${HOME}/.zshrc
 
 
-    sed -i "" "\:source ~/.bash_profile:d" ~/.zshrc
-    echo "source ~/.bash_profile" ~/.zshrc
+    sed -i "\:source ~/.bash_profile:d" ${HOME}/.zshrc
+    echo "source ~/.bash_profile" ${HOME}/.zshrc
 
     # 安装Pure主题
     sh ${DOTFILES_ZSH}/install_pure.sh 
     
     # 最后安装zsh-syntax-highlighting,写入source
-    sh ${DOTFILES_ZSH}/install_syntax.sh
+    sh ${DOTFILES_ZSH}/install_syntax_hl.sh
 }
 
 main "$@"
