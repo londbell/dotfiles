@@ -31,15 +31,15 @@ data be deleted! ' input.dat
 # 切换默认主题为空
 sed -i "" "/^ZSH_THEME/ c\\
 ZSH_THEME=\"\"
-" ~/.zshrc
+" ${HOME}/.zshrc
 
 # 写入prompt信息
 # 先检查下有没有旧的prompt信息,将它们删除
-sed -i "" "\:autoload \-U promptinit\; promptinit:d" ~/.zshrc
-sed -i "" "\:prompt pure:d" ~/.zshrc
+sed -i "" "\:autoload \-U promptinit\; promptinit:d" ${HOME}/.zshrc
+sed -i "" "\:prompt pure:d" ${HOME}/.zshrc
 
-echo "autoload -U promptinit; promptinit" >> ~/.zshrc
-echo "prompt pure" >> ~/.zshrc
+echo "autoload -U promptinit; promptinit" >> ${HOME}/.zshrc
+echo "prompt pure" >> ${HOME}/.zshrc
 
 # 写入全局fpath
 sed -i "" "\:fpath=(~/.local/pure:d" ${OH_MY_ZSH}/oh-my-zsh.sh
