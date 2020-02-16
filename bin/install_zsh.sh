@@ -8,6 +8,7 @@ check_zsh() {
     fi
 }
 
+# shell的判断相等只有一个=
 install_zsh() {
     result=$(get_dist_name)
     if [ $result = "Ubuntu" ]; then
