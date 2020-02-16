@@ -5,7 +5,6 @@ check_zsh() {
         install_zsh
     else 
         echo "Zsh already installed,no need to install"  
-        exit
     fi
 }
 
