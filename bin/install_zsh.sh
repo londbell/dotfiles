@@ -10,13 +10,11 @@ check_zsh() {
 
 install_zsh() {
     result=$(get_dist_name)
-    if [ $result == "Ubuntu" ]; then
+    if [ $result = "Ubuntu" ]; then
         apt install zsh
-    elif [ $result == "CentOS"]; then
+    elif [ $result = "CentOS"]; then
         yum install zsh
-    elif [ $result =="Darwin" ]; then 
+    elif [ $result ="Darwin" ]; then 
         brew install zsh
     fi
 }
-
-check_zsh
