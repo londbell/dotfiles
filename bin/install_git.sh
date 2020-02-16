@@ -1,82 +1,54 @@
 #!/bin/sh
+#From https://github.com/hanxi/dotfiles
 
-set -e
-set -x
+# version=2.19.2
+# download_file_name=v${version}.tar.gz
+# ile_name=git-${version}.tar.gz
 
-LOCAL=~/.local
-export ETC=${LOCAL}/etc
-export BIN=${LOCAL}/bin
-export DOTFILES_ZSH=${LOCAL}/zsh
-export OH_MY_ZSH=~/.oh-my-zsh
+# mkdir -p ~/app-src
+# cd ~/app-src
 
-# 存放clone而来的src,但不在这个目录里做修改，拷贝到安装目录后安装
-export DOTFILESSRC=${LOCAL}/dotfilessrc
-DOTFILES_GIT_URL="https://github.com/londbell/dotfiles.git"
+# if [ ! -f ${file_name} ]; then
+#     wget -O ${file_name} https://github.com/git/git/archive/${download_file_name}
+#     tar -zxvf ${file_name}
+# fi
 
-mkdir -p ${ETC}
-mkdir -p ${BIN}
-mkdir -p ${DOTFILES_ZSH}
+# TODO: check system
+# Ubuntu
+# sudo apt-get install dh-autoreconf libcurl4-gnutls-dev libexpat1-dev gettext libz-dev libssl-dev
+# cd ~/app-src/git-${version}
+# make prefix=$HOME/.local/ install
 
-update_dotfiles() {
-    cd ${LOCAL}
-    if [ -d ${DOTFILESSRC} ]; then
-        cd ${DOTFILESSRC}
-        git pull
-    else
-        # 使用变量时前面加上$取值
-        git clone ${DOTFILES_GIT_URL} ${DOTFILESSRC}
-        cd ${DOTFILESSRC}
+# TODO: check system
+# CentOS
+# sudo yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel
+# sudo yum install  gcc perl-ExtUtils-MakeMaker
+# cd ~/app-src
+# wget http://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.15.tar.gz
+# tar -zxvf libiconv-1.15.tar.gz
+# ./configure --prefix=$HOME/.local
+# make install
+# cd ~/app-src/git-${version}
+# make configure
+# ./configure --prefix=$HOME/.local --with-iconv=$HOME/.local/lib
+# make install
+
+check_git() {
+    if ! command -v git >/dev/null 2>&1; then
+        echo "Git is not installed!Begin to install it"
+        install_git
+    else 
+        echo "Git already installed,no need to install"  
     fi
-
-    cp -rf etc/* ${ETC}/
-    cp -rf bin/* ${BIN}/
-    cp -rf zsh/* ${DOTFILES_ZSH}/
-    # cp bootstrap.sh $BIN/
-
-    . ${BIN}/utils.sh
-    . ${BIN}/install_git.sh
-    . ${BIN}/install_zsh.sh
 }
 
-
-main() {
-    # shell函数执行不需要()
-    update_dotfiles
-
-    check_zsh
-    check_git
-    sh ${ETC}/git_config_alias.sh
-    sh ${BIN}/install_oh_my_zsh.sh
-
-    # 复制主题到ZSH下
-    cp -rf ${DOTFILES_ZSH}/themes/* ${OH_MY_ZSH}/custom/themes/
-
-    # 复制插件到ZSH下
-    cp -rf ${DOTFILES_ZSH}/plugins/* ${OH_MY_ZSH}/custom/plugins/
-
-    # source一下bash_profile
-    sed -i "" "\:source ~/.bash_profile:d" ~/.zshrc
-    echo "source ~/.bash_profile" ~/.zshrc
-
-    # source z插件必须的z.sh
-    sed -i "" "\:source ${DOTFILES_ZSH}/z.sh:d" a.txt
-    echo "source ${DOTFILES_ZSH}/z.sh" >> a.txt
-
-    # 开启zsh的插件
-    # 安装完oh-my-zsh之后,zshrc文件中应该是plugins=(git)
-    sed -i "" "/^plugins=(git)/ c\\
-    plugins=(z git globalias)
-    " ~/.zshrc
-
-
-    sed -i "" "\:source ~/.bash_profile:d" ~/.zshrc
-    echo "source ~/.bash_profile" ~/.zshrc
-
-    # 安装Pure主题
-    sh ${DOTFILES_ZSH}/install_pure.sh 
-    
-    # 最后安装zsh-syntax-highlighting,写入source
-    sh ${DOTFILES_ZSH}/install_syntax.sh
+install_git() {
+    result=$(get_dist_name)
+    if [ $result == "Ubuntu" ]; then
+        apt install git
+    elif [ $result == "CentOS"]; then
+        yum install git
+    elif [ $result =="Darwin" ]; then 
+        brew install git
+    fi
 }
-
-main "$@"
