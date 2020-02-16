@@ -3,7 +3,7 @@
 set -e
 set -x
 
-LOCAL="~/.local"
+LOCAL=~/.local
 export ETC=${LOCAL}/etc
 export BIN=${LOCAL}/bin
 export DOTFILES_ZSH=${LOCAL}/zsh
@@ -15,7 +15,7 @@ DOTFILES_GIT_URL="https://github.com/londbell/dotfiles.git"
 
 mkdir -p ${ETC}
 mkdir -p ${BIN}
-mkdir -p ${DOTFILESSRC}
+mkdir -p ${DOTFILES_ZSH}
 
 update_dotfiles() {
     cd ${LOCAL}
