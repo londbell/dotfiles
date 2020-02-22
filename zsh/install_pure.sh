@@ -35,13 +35,15 @@ ZSH_THEME=\"\"
 
 # 写入prompt信息
 # 先检查下有没有旧的prompt信息,将它们删除
-sed -i "\:autoload \-U promptinit\; promptinit:d" ${HOME}/.zshrc
-sed -i "\:prompt pure:d" ${HOME}/.zshrc
+# sed -i "\:autoload \-U promptinit\; promptinit:d" ${HOME}/.zshrc
+# sed -i "\:prompt pure:d" ${HOME}/.zshrc
+perl -ni -e 'print unless /autoload -U promptinit; promptinit/' ${HOME}/.zshrc 
+perl -ni -e 'print unless /prompt pure/' ${HOME}/.zshrc 
 
 echo "autoload -U promptinit; promptinit" >> ${HOME}/.zshrc
 echo "prompt pure" >> ${HOME}/.zshrc
 
 # 写入全局fpath
-sed -i "\:fpath=(~/.local/pure:d" ${OH_MY_ZSH}/oh-my-zsh.sh
-echo "fpath=(~/.local/pure \$fpath)" >> ${OH_MY_ZSH}/oh-my-zsh.sh
+sed -i "\:fpath=(~/.local/zsh/pure:d" ${OH_MY_ZSH}/oh-my-zsh.sh
+echo "fpath=(~/.local/zsh/pure \$fpath)" >> ${OH_MY_ZSH}/oh-my-zsh.sh
 

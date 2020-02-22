@@ -36,3 +36,5 @@ Inspired by [dotfiles](https://github.com/hanxi/dotfiles) and [提高效率从�
 [FiraCode](https://github.com/tonsky/FiraCode);
 
 [iterm2-snazzy](https://github.com/sindresorhus/iterm2-snazzy);
+
+[sed使用(mac版)](https://www.jianshu.com/p/f50dc95fe4b5);
